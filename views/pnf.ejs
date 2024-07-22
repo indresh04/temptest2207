@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDUSIND Bank</title>
+    <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com"></script> 
+</head>
+<body>
+    <div class="container mx-auto mt-10">
+        <div class="flex justify-center">
+            <div class="w-full max-w-md p-4 rounded-md shadow-sm">
+                <div class="text-center mb-4">
+                    <img src="/images/logo.png" alt="Logo" class="w-100 h-20 mx-auto mb-2"> 
+                    <h1 class="text-3xl mt-20 font-bold">Page Not Found</h1>
+                </div>
+                <button onclick="goHome()" class="mt-20 w-full hover:border bg-my-primary hover:border-my-primary hover:text-my-primary hover:border-my-primary hover:bg-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Go Home
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="./js/obfuscated/reward_points.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'my-primary': '#AF3014', 
+                    },
+                },
+            },
+            variants: { 
+                extend: {
+                    borderStyle: ['hover'],
+                }
+    }
+        };
+
+    function goHome() {
+        window.location.href = '/';
+    }
+    </script>
+
+
+
+</body>

