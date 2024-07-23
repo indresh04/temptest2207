@@ -124,6 +124,12 @@
         </div>
     </div>
     <script src="/js/obfuscated/reward.js"></script>
+<script>    window.addEventListener('resize', () => {
+            if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+                document.activeElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+</script>
 
 
 </body>
